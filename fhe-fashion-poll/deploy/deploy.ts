@@ -1,17 +1,15 @@
-import { DeployFunction } from "hardhat-deploy/types";
-import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { ethers } from "hardhat";
 
-const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  const { deployer } = await hre.getNamedAccounts();
-  const { deploy } = hre.deployments;
+async function main() {
+  const Factory = await ethers.getContractFactory("FHEFashionPoll");
+  const poll = await Factory.deploy();
+  await poll.waitForDeployment();
 
-  const deployedFHECounter = await deploy("FHECounter", {
-    from: deployer,
-    log: true,
-  });
+  const address = await poll.getAddress();
+  console.log("FHEFashionPoll deployed:", address);
+}
 
-  console.log(`FHECounter contract: `, deployedFHECounter.address);
-};
-export default func;
-func.id = "deploy_fheCounter"; // id required to prevent reexecution
-func.tags = ["FHECounter"];
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

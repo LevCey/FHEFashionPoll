@@ -6,7 +6,7 @@ describe("FHEFashionPoll", () => {
         const [alice] = await ethers.getSigners();
         const Factory = await ethers.getContractFactory("FHEFashionPoll");
         const poll = await Factory.deploy();
-        await poll.deployed();
+        await poll.waitForDeployment();
 
         // Frontend şifreleme yerine: test modunda helper ile dış euint8 üretin
         // Örn: hardhat plugin util'leri ile externalEuint8 + attestation hazırla
