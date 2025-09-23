@@ -28,9 +28,12 @@ contract FHEFashionPoll is SepoliaConfig {
         // CMUX / select benzeri koşullu toplama
         // yesCount += isYes ? 1 : 0
         yesCount = FHE.add(yesCount, FHE.select(isYes, FHE.asEuint64(1), FHE.asEuint64(0)));
+        // Bir sonraki işlem çağrılarında bu ciphertext üzerinde homomorfik işlem yapma izni
+        FHE.allow(yesCount, address(this));
 
         // noCount += isYes ? 0 : 1
         noCount = FHE.add(noCount, FHE.select(isYes, FHE.asEuint64(0), FHE.asEuint64(1)));
+        FHE.allow(noCount, address(this));
 
         hasVoted[msg.sender] = true;
         emit Voted(msg.sender);

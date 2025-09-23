@@ -3,22 +3,41 @@ import { ethers } from "hardhat";
 
 describe("FHEFashionPoll", () => {
     it("prevents double vote and tallies encrypted", async () => {
-        const [alice] = await ethers.getSigners();
+        const [alice, bob] = await ethers.getSigners();
         const Factory = await ethers.getContractFactory("FHEFashionPoll");
         const poll = await Factory.deploy();
         await poll.waitForDeployment();
 
-        // Frontend şifreleme yerine: test modunda helper ile dış euint8 üretin
-        // Örn: hardhat plugin util'leri ile externalEuint8 + attestation hazırla
-        // const { external, attestation } = await makeEncryptedUint8(1);
-        // await expect(poll.connect(alice).vote(external,attestation)).to.emit(poll, "Voted");
- 
-        // Tekrar oy denemesi revert etmeli
-        // await expect(poll.connect(alice).vote(external, attestation)).to.be.revertedWith("Already voted");
-        // Şifreli toplamları okuyun (eşit değildir sıfır vb. şeklinde temel doğrulamalar)
+        // Check initial state
+        expect(await poll.hasVoted(alice.address)).to.be.false;
+        
+        // Mock encrypted input for testing
+        // In real implementation, this would use FHEVM's createEncryptedInput
+        const mockEncryptedChoice = "0x" + "1".padStart(64, "0"); // Mock bytes32
+        const mockAttestation = "0x" + "a".repeat(64); // Mock attestation
 
+        // Alice votes
+        await expect(poll.connect(alice).vote(mockEncryptedChoice, mockAttestation))
+            .to.emit(poll, "Voted")
+            .withArgs(alice.address);
+
+        // Check Alice has voted
+        expect(await poll.hasVoted(alice.address)).to.be.true;
+
+        // Alice tries to vote again - should fail
+        await expect(poll.connect(alice).vote(mockEncryptedChoice, mockAttestation))
+            .to.be.revertedWith("Already voted");
+
+        // Bob can still vote
+        expect(await poll.hasVoted(bob.address)).to.be.false;
+        await expect(poll.connect(bob).vote(mockEncryptedChoice, mockAttestation))
+            .to.emit(poll, "Voted")
+            .withArgs(bob.address);
+
+        // Get tallies (encrypted)
         const tallies = await poll.getTallies();
-        expect(tallies).to.be.ok; // detaylı eşitlikler FHE yardımcılarıyla yapılır
+        expect(tallies.yes).to.not.equal("0x" + "0".repeat(64));
+        expect(tallies.no).to.not.equal("0x" + "0".repeat(64));
     });
 });
 
