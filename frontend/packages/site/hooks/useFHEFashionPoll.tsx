@@ -113,13 +113,11 @@ export const useFHEFashionPoll = (params: {
           const userAddr = await ethersSigner.getAddress();
           // small yield to let wasm modules settle (prevents rare attestation races)
           await new Promise((r) => setTimeout(r, 100));
-          const input = instance.createEncryptedInput(
-            poll.address,
-            userAddr
-          );
+          const contractAddress = poll.address!;
+          const input = instance.createEncryptedInput(contractAddress, userAddr);
           input.add8(choice);
           const enc = await input.encrypt();
-          const contract = new ethers.Contract(poll.address, poll.abi, ethersSigner);
+          const contract = new ethers.Contract(contractAddress, poll.abi, ethersSigner);
           const tx = await contract.vote(enc.handles[0], enc.inputProof);
           await tx.wait();
           setMessage("Vote submitted");
