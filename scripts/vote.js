@@ -4,7 +4,7 @@ async function main() {
   const { ethers } = hre;
   await hre.fhevm.initializeCLIApi();   // önemli
 
-  const CONTRACT_ADDR = process.env.CONTRACT_ADDR ?? "0xEBa52A122AF08f9EdACd58051661528c3A249066";
+  const CONTRACT_ADDR = process.env.CONTRACT_ADDR ?? "0x3B2BbD6E6137f9ce4E5D3993f7cb79B39769c5e8";
   const RAW = process.env.CHOICE ?? "1";
   const choice = Number(RAW);
   if (!(choice === 0 || choice === 1)) throw new Error(`CHOICE must be 0 or 1. Got: ${RAW}`);
