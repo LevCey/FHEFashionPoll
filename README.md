@@ -1,3 +1,7 @@
+# FHE Fashion Poll
+
+![FHE Fashion Poll DApp arayüzü](image.png)
+
 FHEFashionPoll — Confidential voting on Zama fhEVM
 ==================================================
 
@@ -83,5 +87,3 @@ Tip: Submissions should be reproducible end‑to‑end (deploy + run the UI). Th
 License
 -------
 See the license file at the repository root.
-
-
