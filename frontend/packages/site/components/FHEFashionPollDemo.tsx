@@ -56,6 +56,15 @@ export const FHEFashionPollDemo = () => {
         </p>
       </div>
 
+      {/* Info banner when no contract configured for current network */}
+      {(!poll.contractAddress) && (
+        <div className="col-span-full mx-20 mb-2 rounded-md border-2 border-black bg-white p-4">
+          <p className="text-black text-sm">
+            Contract address is not set for the current network. Please connect MetaMask and switch to <span className="font-semibold">Sepolia</span> to interact. If you deployed to a different network, update <code>packages/site/abi/FHEFashionPollAddresses.ts</code> with your contract address.
+          </p>
+        </div>
+      )}
+
       <div className="grid grid-cols-2 mx-20 gap-4">
         <button className={button} disabled={!poll.canVote} onClick={() => poll.vote(1)}>
           Yes
