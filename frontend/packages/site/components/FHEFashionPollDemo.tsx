@@ -1,12 +1,10 @@
 "use client";
 
 import { useFhevm } from "@fhevm/react";
-import { useInMemoryStorage } from "../hooks/useInMemoryStorage";
 import { useMetaMaskEthersSigner } from "../hooks/metamask/useMetaMaskEthersSigner";
 import { useFHEFashionPoll } from "../hooks/useFHEFashionPoll";
 
 export const FHEFashionPollDemo = () => {
-  const { storage } = useInMemoryStorage();
   const {
     provider,
     chainId,
