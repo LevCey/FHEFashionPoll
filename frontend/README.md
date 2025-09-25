@@ -6,7 +6,7 @@ and provides a simple development frontend for interacting with the `FHECounter.
 
 This template also illustrates how to run your FHEVM-dApp on both Sepolia as well as a local Hardhat Node (much faster).
 
-## Features
+## Features 
 
 - **@zama-fhe/relayer-sdk**: Fully Homomorphic Encryption for Ethereum Virtual Machine
 - **React**: Modern UI framework for building interactive interfaces
