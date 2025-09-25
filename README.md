@@ -1,6 +1,6 @@
 # FHE Fashion Poll
 
-![FHE Fashion Poll DApp arayüzü](image.png)
+![FHE Fashion Poll DApp arayüzü](FHEFashionPoll.png)
 
 FHEFashionPoll — Confidential voting on Zama fhEVM
 ==================================================
