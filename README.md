@@ -13,6 +13,7 @@ Highlights
 - Client-side attestation (input-proof) with `@zama-fhe/relayer-sdk`
 - Simple Next.js UI (MetaMask)
 - Hardhat for development and deployment
+![Architecture Diagram] (fhe-architecture-diagram.png)
 
 Quick start
 -----------
