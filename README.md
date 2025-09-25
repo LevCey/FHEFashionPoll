@@ -5,7 +5,8 @@
 FHEFashionPoll — Confidential voting on Zama fhEVM
 ==================================================
 
-This repository contains a minimal “Yes/No” confidential voting dApp built on Zama’s fhEVM. Votes are stored encrypted on-chain and tallied homomorphically, so individual choices remain private while totals update securely.
+This repository contains a minimal “Yes/No” confidential voting dApp built on Zama’s fhEVM. Votes are stored encrypted on-chain and tallied homomorphically, so individual choices remain private while totals update securely.  
+Live demo link: https://fhe-fashion-poll.vercel.app/
 
 Highlights
 ----------
